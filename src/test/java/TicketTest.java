@@ -1,8 +1,6 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.Comparator;
 
 public class TicketTest {
@@ -18,7 +16,7 @@ public class TicketTest {
     Ticket ticket7 = new Ticket("Санкт-Петербург", "Ереван", 10_000, 1, 2);//Время полета 1 час
 
     @Test
-    public void showShortingByPrice() {
+    public void showShortingByPrice() {//Просмотр всех билетов
         AviaSouls aviaSouls = new AviaSouls();
         aviaSouls.add(ticket1);
         aviaSouls.add(ticket2);
@@ -34,7 +32,7 @@ public class TicketTest {
     }
 
     @Test
-    public void showSearchTickets() {
+    public void showSearchTickets() {//Просмотр билетов по направлению, отсортированых по цене
         AviaSouls aviaSouls = new AviaSouls();
         aviaSouls.add(ticket1);
         aviaSouls.add(ticket2);
@@ -48,12 +46,43 @@ public class TicketTest {
         Ticket[] actual = aviaSouls.search("Санкт-Петербург", "Ереван");
 
         Assertions.assertArrayEquals(expected, actual);
-
-
     }
 
     @Test
-    public void showSearchTicketsWithFliTime() {
+    public void showSearchTicket() {//проверка, если найдлен 1 билет
+        AviaSouls aviaSouls = new AviaSouls();
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+        aviaSouls.add(ticket4);
+        aviaSouls.add(ticket5);
+        aviaSouls.add(ticket6);
+        aviaSouls.add(ticket7);
+
+        Ticket[] expected = {ticket4};
+        Ticket[] actual = aviaSouls.search("Сочи", "Москва");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void showSearchIfNotHaveTicket() {//проверка если билетов нет
+        AviaSouls aviaSouls = new AviaSouls();
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+        aviaSouls.add(ticket4);
+        aviaSouls.add(ticket5);
+        aviaSouls.add(ticket6);
+        aviaSouls.add(ticket7);
+
+        Ticket[] expected = {};
+        Ticket[] actual = aviaSouls.search("Владивосток", "Москва");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+
+    @Test
+    public void showSearchTicketsWithFliTime() {//сортировка билетов по времени полета
         AviaSouls aviaSouls = new AviaSouls();
         aviaSouls.add(ticket1);
         aviaSouls.add(ticket2);
